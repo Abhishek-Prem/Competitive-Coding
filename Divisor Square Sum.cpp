@@ -6,14 +6,14 @@
 using namespace std;
 
 int sumOfSquaresOfDivisors(int n) {
-    int i, sum = 0;
-    for(i=1; i<=sqrt(n); i++) {
-			if(n%i==0) {
-				sum += i*i;
-				if(i!=(n/i)) sum += (n/i)*(n/i);
-			}
+	int i, sum = 0;
+	for(i=1; i<=sqrt(n); i++) {
+		if(n%i==0) {
+			sum += i*i;
+			if(i!=(n/i)) sum += (n/i)*(n/i);
 		}
-		return sum;
+	}
+	return sum;
 }
 
 bool isAtmostKAway(int sum, int K) {
@@ -27,17 +27,17 @@ bool isAtmostKAway(int sum, int K) {
 }
 
 int main() {
-    int q, N, K;
-		int i;
-    cin>>q;
-    while(q--) {
-			cin>>N>>K;
-			int finalSum = 0;
-			for(i=1; i<=N; i++) {
-				if(isAtmostKAway(sumOfSquaresOfDivisors(i), K))
-					finalSum += i;
-			}
-			cout<<finalSum<<endl;
+	int q, N, K;
+	int i;
+	cin>>q;
+	while(q--) {
+		cin>>N>>K;
+		int finalSum = 0;
+		for(i=1; i<=N; i++) {
+			if(isAtmostKAway(sumOfSquaresOfDivisors(i), K))
+				finalSum += i;
 		}
-		return 0;
+		cout<<finalSum<<endl;
+	}
+	return 0;
 }
