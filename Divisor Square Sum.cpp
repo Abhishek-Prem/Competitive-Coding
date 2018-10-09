@@ -5,42 +5,39 @@
 #include <algorithm>
 using namespace std;
 
-int check(int n)
-{
-    int i, s2;
-    float s;
-    for(i=1; i<=n; ++i)
-        s=s+(i*i);
-    s2=sqrt(s);
-    if(s2==s)
-        return 1;
-    else
-        return 0;
+int sumOfSquaresOfDivisors(int n) {
+    int i, sum = 0;
+    for(i=1; i<=sqrt(n); i++) {
+			if(n%i==0) {
+				sum += i*i;
+				if(i!=(n/i)) sum += (n/i)*(n/i);
+			}
+		}
+		return sum;
 }
 
-int main() 
-{
-    int n, k[100], i, j, q, m;
-    long int a[100], s[100];
+bool isAtmostKAway(int sum, int K) {
+	int small = floor(sqrt(sum));
+	int large = ceil(sqrt(sum));
+	int nearestSmallSquare = small * small;
+	int nearestLargeSquare = large * large;
+	if(abs(sum - nearestSmallSquare)<=K || abs(sum - nearestLargeSquare)<=K)
+		return true;
+	return false;
+}
+
+int main() {
+    int q, N, K;
+		int i;
     cin>>q;
-    for(i=1; i<=q; ++i) 
-    {
-        cin>>a[i]; cin>>k[i];
-    }
-    for(i=1; i<=q; ++i) 
-    {
-        s[i]=0;
-        for(j=1; j<=a[i]; ++j)
-        {
-            for(m=0; m<=k[i]; ++m)
-            {
-                if(check(j+m))
-                    s[i]=s[i]+(j+m);
-                if(check(j-m))
-                    s[i]=s[i]+(j-m);
-            }
-        }
-        cout<<s[i]<<endl;
-    }
-    return 0;
+    while(q--) {
+			cin>>N>>K;
+			int finalSum = 0;
+			for(i=1; i<=N; i++) {
+				if(isAtmostKAway(sumOfSquaresOfDivisors(i), K))
+					finalSum += i;
+			}
+			cout<<finalSum<<endl;
+		}
+		return 0;
 }
